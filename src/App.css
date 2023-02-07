@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light+Two&display=swap');
+
+:root {
+	--accent-text-color: #e1bee7;
+	--cursive-font: 'Shadows Into Light Two', cursive;
+	--dark-background-color: #0b212b;
+	--dark-color: #222;
+	--dark-color-rgb: 34 34 34;
+	--default-text-color: #ccc;
+	--light-color: #fff;
+	--main-color: #112933;
+	--main-font: 'Roboto', sans-serif;
+	--secondary-text-color: #e6ee9c;
+	--title-color: #f0ad4e;
+	--vague-color: #e9ecef;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background-color: var(--main-color);
+	color: var(--default-text-color);
+	display: flex;
+	flex-direction: column;
+	font-family: var(--main-font);
+	grid-template-rows: auto 1fr auto;
+	height: 100%;
+	justify-content: space-between;
+	line-height: 1.5;
+	margin: 0;
+	min-height: 100vh;
+	padding: 0;
+	scrollbar-gutter: stable both-edges;
+	scrollbar-width: thin;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+}
+
+[type='search']::-webkit-search-cancel-button,
+[type='search']::-webkit-search-decoration {
+	appearance: none;
+}
+
+#root {
+	min-height: inherit;
+}
+
+.page {
+	display: flex;
+	flex-direction: column;
+}
+
+.page main {
+	flex: 1;
+}

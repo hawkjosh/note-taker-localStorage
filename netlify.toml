@@ -1,0 +1,22 @@
+[dev]
+  command = "yarn run vite:start"
+  publish = "dist"
+  port = 5555
+
+[build]
+  command = "yarn run vite:build"
+  publish = "dist"
+
+[functions]
+  node_bundler = "esbuild"
+  included_files = ["netlify/data/*.json"]
+  
+[[redirects]]
+  from = "/api/readNotes"
+  to = "/.netlify/functions/readNotes"
+  status = 200
+
+[[redirects]]
+  from = "/api/writeNotes"
+  to = "/.netlify/functions/writeNotes"
+  status = 200

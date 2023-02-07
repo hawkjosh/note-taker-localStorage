@@ -1,0 +1,83 @@
+.cNotesPageWrapper {
+	width: 100%;
+	height: calc(100vh - 10rem);
+	display: flex;
+	margin: 6.25rem 2.5% 0rem;
+}
+
+.cNotesListContainer {
+	width: auto;
+	max-width: 32.5%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	flex-basis: 32.5%;
+	border: 1.5px solid var(--vague-color);
+	border-bottom: none;
+	border-top: none;
+	padding: 0 1.5rem;
+}
+
+.cNotesListItem {
+	width: 100%;
+	height: auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 1.25rem;
+	border-bottom: 1.5px solid var(--vague-color);
+	cursor: pointer;
+	padding: 0rem 0.5rem;
+}
+
+.cNotesListItem:first-child {
+	padding-top: 2rem;
+}
+
+.cNotesListItem:last-child {
+	border-bottom: none;
+}
+
+.cNotesListItem svg:hover {
+	fill: tomato;
+}
+
+.cNewNoteContainer {
+	width: auto;
+	max-width: 62.5%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	flex-basis: 62.5%;
+	padding-left: 1.5rem;
+}
+
+.cNewNoteTitle {
+	width: 100%;
+	height: auto;
+	max-height: 15%;
+	flex-basis: 15%;
+	font-size: 3rem;
+	color: var(--main-color);
+	background-color: var(--secondary-text-color);
+	border: none;
+	border-bottom: 1px solid #757575;
+	outline: none;
+	padding-left: 1rem;
+}
+
+.cNewNoteText {
+	width: 100%;
+	height: auto;
+	max-height: 75%;
+	flex-basis: 75%;
+	font-size: 1.5rem;
+	color: var(--main-color);
+	background-color: var(--secondary-text-color);
+	border: none;
+	outline: none;
+	resize: none;
+	padding-left: 1rem;
+	padding-top: 0.5rem;
+}

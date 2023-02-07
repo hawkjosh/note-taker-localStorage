@@ -1,0 +1,23 @@
+{
+	"name": "note-taker",
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"start": "netlify dev",
+		"vite:start": "vite",
+		"vite:build": "vite build",
+		"vite:preview": "vite preview"
+	},
+	"license": "ISC",
+	"dependencies": {
+		"lowdb": "^5.0.5",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"wouter": "^2.9.2"
+	},
+	"devDependencies": {
+		"@vitejs/plugin-react": "^3.1.0",
+		"netlify-cli": "^12.10.0",
+		"vite": "^4.1.0"
+	}
+}

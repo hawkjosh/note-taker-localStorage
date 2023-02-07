@@ -1,0 +1,12 @@
+.cIcon {
+	display: flex;
+	align-items: stretch;
+
+	width: var(--icon-width, 100%);
+	height: var(--icon-height, 100%);
+}
+
+.cIcon > svg {
+	width: inherit;
+	height: inherit;
+}

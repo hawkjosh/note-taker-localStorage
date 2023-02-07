@@ -1,0 +1,36 @@
+.cHomePageWrapper {
+	display: grid;
+	height: 100vh;
+	place-items: center;
+}
+
+.cWelcomeContainer {
+	background-color: hsla(192, 15%, 94%, 10%);
+	border-radius: 2rem;
+  box-shadow: 0.25rem 0.25rem 1rem 0.25rem #000000;
+	padding: 4rem 1rem;
+	text-align: center;
+	width: 60%;
+	font-family: var(--cursive-font);
+	color: var(--title-color)
+}
+
+.cWelcomeSubtitle {
+	color: var(--vague-color);
+	font-family: var(--main-font);
+	font-size: 1.5rem;
+	font-weight: 400;
+	margin-top: 0.75rem;
+}
+
+.cWelcomeTitle {
+	font-size: 3.5rem;
+	font-weight: 400;
+}
+
+.cWelcomeTitleContainer {
+	align-items: center;
+	display: flex;
+	gap: 4rem;
+	justify-content: center;
+}

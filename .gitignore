@@ -1,0 +1,11 @@
+.DS_Store
+.idea/
+.netlify/
+logs/
+dist/
+article/
+node_modules/
+
+.env
+*.swp
+*.swo
