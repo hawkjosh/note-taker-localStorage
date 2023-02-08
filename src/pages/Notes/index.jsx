@@ -72,7 +72,7 @@ export default () => {
 	}
 
 	const deleteNote = (noteId) =>
-		fetch(`/api/deleteNotes/`, {
+		fetch(`/api/deleteNotes/${noteId}`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
