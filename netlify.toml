@@ -12,11 +12,11 @@
   included_files = ["netlify/data/*.json"]
   
 [[redirects]]
-  from = "/api/readNotes"
-  to = "/.netlify/functions/readNotes"
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
   status = 200
 
 [[redirects]]
-  from = "/api/writeNotes"
-  to = "/.netlify/functions/writeNotes"
+  from = "/*"
+  to = "/index.html"
   status = 200

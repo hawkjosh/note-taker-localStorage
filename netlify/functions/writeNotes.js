@@ -1,23 +1,28 @@
 import Database from '../database.js'
-import uid from '../uniqueId.js'
+import { v4 as uuidv4 } from 'uuid'
 
-export const handler = async (_event, _context) => {
+export const handler = async (event, _context) => {
 	const db = Database()
 
-  const noteData = {
-    id: uid(),
-    title,
-    text
-  }
+	const { title, text } = JSON.parse(event.body)
+	const noteId = uuidv4()
 
-  db.data.notes.push({
-    ...noteData
-  })
+	const newNote = {
+		id: noteId,
+		title: title,
+		text: text,
+	}
+
+	await db.read()
+
+	db.data.notes.push({
+		...newNote,
+	})
 
 	await db.write()
 
 	return {
 		statusCode: 200,
-		body: JSON.stringify(noteData),
+		body: JSON.stringify(`New note created -> ID: ${newNote.id}`),
 	}
 }

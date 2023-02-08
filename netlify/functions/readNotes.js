@@ -5,6 +5,8 @@ export const handler = async (_event, _context) => {
 
 	await db.read()
 
+	db.data ||= { notes: [] }
+
 	return {
 		statusCode: 200,
 		body: JSON.stringify(db.data.notes),
