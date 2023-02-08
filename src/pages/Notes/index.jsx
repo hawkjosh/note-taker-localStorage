@@ -72,17 +72,13 @@ export default () => {
 	}
 
 	const deleteNote = (noteId) =>
-		fetch(
-			`/api/deleteNotes/${noteId}`,
-			{
-				method: 'DELETE',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(noteId),
+		fetch(`/api/deleteNotes/`, {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
 			},
-			console.log(noteId)
-		).then(async () => {
+			body: JSON.stringify(noteId),
+		}).then(async () => {
 			const response = await fetch('/api/readNotes')
 			const updatedData = await response.json()
 			setData(updatedData)
