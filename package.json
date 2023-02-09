@@ -3,10 +3,9 @@
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
-		"start": "netlify dev",
-		"vite:start": "vite",
-		"vite:build": "vite build",
-		"vite:preview": "vite preview"
+		"start": "vite",
+		"build": "vite build",
+		"preview": "vite preview"
 	},
 	"license": "ISC",
 	"dependencies": {
