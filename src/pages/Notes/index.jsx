@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { Link } from 'wouter'
+import uid from '../../utils/uniqueId.js'
 
 import Icon from '../../components/icons/index.jsx'
 
@@ -10,8 +11,6 @@ import {
 	cNavbarTitleContainer,
 	cNavbarTitlePanel,
 	cNavActionIconsContainer,
-	cNavActionIcons,
-	cSaveNote,
 	cNotesPageWrapper,
 	cNotesListContainer,
 	cNotesListItem,
@@ -20,69 +19,70 @@ import {
 	cNewNoteText,
 	cFooterContainer,
 	cDisclaimer,
+	cNotesListActionIcons,
+	cHideIcon,
+	cDeleteIcon,
+	cSaveIcon,
+	cEditIcon,
+	cAddIcon,
 } from './index.module.css'
 
 export default () => {
 	const [title, setTitle] = useState('')
+	const [titleUpdate, setTitleUpdate] = useState()
 	const [text, setText] = useState('')
-	const [data, setData] = useState([])
+	const [textUpdate, setTextUpdate] = useState()
+	const [notes, setNotes] = useState(
+		JSON.parse(localStorage.getItem('notes')) || []
+	)
 	const [selectedNote, setSelectedNote] = useState({})
 
-	useEffect(() => {
-		const readNotes = async () => {
-			const response = await fetch('/api/readNotes')
-			const newData = await response.json()
-			setData(newData)
-		}
-		readNotes()
-	}, [])
+	const resetNote = () => {
+		setTitle('')
+		setText('')
+		setSelectedNote({})
+	}
 
 	const handleNoteClick = (note) => {
 		setSelectedNote(note)
 	}
 
-	const addNote = () => {
-		setSelectedNote({})
-		setTitle('')
-		setText('')
-	}
-
-	const saveNote = (newNote) =>
-		fetch(`/api/writeNotes`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(newNote),
-		}).then(async () => {
-			const response = await fetch('/api/readNotes')
-			const updatedData = await response.json()
-			setData(updatedData)
-		})
-
-	const handleSaveNote = () => {
+	const saveNote = () => {
 		const newNote = {
+			id: uid(),
 			title: title,
 			text: text,
 		}
-		saveNote(newNote)
-		setSelectedNote({})
-		setTitle('')
-		setText('')
+
+		setNotes([...notes, newNote])
+
+		localStorage.setItem('notes', JSON.stringify([...notes, newNote]))
+
+		resetNote()
 	}
 
-	const deleteNote = (noteId) =>
-		fetch(`/api/deleteNotes/${noteId}`, {
-			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(noteId),
-		}).then(async () => {
-			const response = await fetch('/api/readNotes')
-			const updatedData = await response.json()
-			setData(updatedData)
-		}, setSelectedNote({}))
+	const deleteNote = (noteId) => {
+		const updatedNotes = notes.filter((note) => note.id !== noteId)
+
+		setNotes(updatedNotes)
+
+		localStorage.setItem('notes', JSON.stringify(updatedNotes))
+
+		resetNote()
+	}
+
+	const updateNote = (updatedNote) => {
+		const updatedNotes = notes.map((note) => {
+			if (note.id === updatedNote.id) {
+				return updatedNote
+			}
+			return note
+		})
+
+		setNotes(updatedNotes)
+
+		localStorage.setItem('notes', JSON.stringify(updatedNotes))
+	}
 
 	return (
 		<>
@@ -104,18 +104,18 @@ export default () => {
 							<Icon
 								className={
 									!title.trim() || !text.trim()
-										? `${cSaveNote}`
-										: `${cNavActionIcons}`
+										? `${cHideIcon}`
+										: `${cSaveIcon}`
 								}
 								name='save'
 								width='30px'
-								onClick={handleSaveNote}
+								onClick={saveNote}
 							/>
 							<Icon
-								className={cNavActionIcons}
-								name='plus'
+								className={cAddIcon}
+								name='add'
 								width='30px'
-								onClick={addNote}
+								onClick={resetNote}
 							/>
 						</div>
 					</div>
@@ -125,26 +125,45 @@ export default () => {
 			<div className={cNotesPageWrapper}>
 				<div className={cNotesListContainer}>
 					<Fragment>
-						{data.map((item, index) => {
+						{notes.map((note, index) => {
 							return (
 								<Fragment key={index}>
 									<div className={cNotesListItem}>
 										<h3
 											data-status={
-												item === selectedNote ? 'active' : 'inactive'
+												note === selectedNote ? 'active' : 'inactive'
 											}
 											onClick={() => {
-												handleNoteClick(item)
+												handleNoteClick(note)
 											}}>
-											{item.title}
+											{note.title}
 										</h3>
-										<Icon
-											name='trash'
-											width='1.75rem'
-											onClick={() => {
-												deleteNote(item.id)
-											}}
-										/>
+										<div className={cNotesListActionIcons}>
+											<Icon
+												className={
+													note === selectedNote
+														? `${cEditIcon}`
+														: `${cHideIcon}`
+												}
+												name='edit'
+												width='1.75rem'
+												onClick={() => {
+													updateNote(note.id)
+												}}
+											/>
+											<Icon
+												className={
+													note === selectedNote
+														? `${cDeleteIcon}`
+														: `${cHideIcon}`
+												}
+												name='trash'
+												width='1.75rem'
+												onClick={() => {
+													deleteNote(note.id)
+												}}
+											/>
+										</div>
 									</div>
 								</Fragment>
 							)
@@ -165,7 +184,7 @@ export default () => {
 						id='note-text'
 						className={cNewNoteText}
 						placeholder='Note Text'
-						value={selectedNote.title ? selectedNote.text : text}
+						value={selectedNote.text ? selectedNote.text : text}
 						onChange={(e) => setText(e.target.value)}
 					/>
 				</div>

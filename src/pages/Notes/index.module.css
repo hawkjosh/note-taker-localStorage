@@ -46,11 +46,16 @@
 	gap: 2rem;
 }
 
-.cNavActionIcons {
+.cNavActionIconsContainer *:hover {
 	cursor: pointer;
 }
 
-.cSaveNote {
+.cAddIcon svg:hover,
+.cSaveIcon svg:hover {
+	fill: var(--title-color);
+}
+
+.cHideIcon {
 	display: none;
 }
 
@@ -95,8 +100,25 @@
 	border-bottom: none;
 }
 
-.cNotesListItem svg:hover {
+.cNotesListActionIcons {
+	display: flex;
+	gap: 1.25rem;
+}
+
+.cDeleteIcon svg:hover {
 	fill: tomato;
+}
+
+.cEditIcon svg:hover {
+	fill:lawngreen;
+}
+
+.cNotesListItem > h3[data-status='active'] {
+	text-transform: uppercase;
+}
+
+.cNotesListItem > h3[data-status='active']::before {
+	content: '⭐ ';
 }
 
 .cNewNoteContainer {
