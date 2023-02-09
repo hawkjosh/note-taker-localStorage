@@ -61,6 +61,10 @@ export default () => {
 		setUpdateSelectedNote(note)
 	}
 
+	const handleUpdateNoteClickInactive = () => {
+		setUpdateSelectedNote({})
+	}
+
 	const saveNote = () => {
 		const newNote = {
 			id: uid(),
@@ -165,13 +169,23 @@ export default () => {
 											<div className={cNotesListActionIcons}>
 												<Icon
 													className={
-														note === selectedNote
+														note === selectedNote && note !== updateSelectedNote
 															? `${cBackIcon}`
 															: `${cHideIcon}`
 													}
 													name='back'
 													width='1.75rem'
 													onClick={handleNoteClickInactive}
+												/>
+												<Icon
+													className={
+														note === updateSelectedNote
+															? `${cBackIcon}`
+															: `${cHideIcon}`
+													}
+													name='back'
+													width='1.75rem'
+													onClick={handleUpdateNoteClickInactive}
 												/>
 												<Icon
 													className={
