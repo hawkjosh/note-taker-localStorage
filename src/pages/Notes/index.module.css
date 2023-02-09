@@ -20,7 +20,6 @@
 	display: inline-block;
 	font-size: 2rem;
 	font-weight: 400;
-	text-decoration: none;
 	text-transform: uppercase;
 	font-family: var(--cursive-font);
 }
@@ -30,6 +29,7 @@
 	display: flex;
 	gap: 1.5rem;
 	justify-content: center;
+	text-decoration: none;
 }
 
 .cNavbarTitlePanel {
@@ -50,8 +50,8 @@
 	cursor: pointer;
 }
 
-.cAddIcon svg:hover,
-.cSaveIcon svg:hover {
+.cSaveIcon svg:hover,
+.cBackIcon svg:hover {
 	fill: var(--title-color);
 }
 
@@ -114,14 +114,11 @@
 }
 
 .cNotesListItem > h3[data-status='active'] {
-	text-transform: uppercase;
+	font-weight: bold;
+	color: var(--title-color)
 }
 
-.cNotesListItem > h3[data-status='active']::before {
-	content: '⭐ ';
-}
-
-.cNewNoteContainer {
+.cNoteViewContainer {
 	width: auto;
 	max-width: 62.5%;
 	height: 100%;
@@ -132,7 +129,7 @@
 	padding-left: 1.5rem;
 }
 
-.cNewNoteTitle {
+.cNoteTitle {
 	width: 100%;
 	height: auto;
 	max-height: 15%;
@@ -146,7 +143,7 @@
 	padding-left: 1rem;
 }
 
-.cNewNoteText {
+.cNoteText {
 	width: 100%;
 	height: auto;
 	max-height: 75%;
@@ -159,6 +156,10 @@
 	resize: none;
 	padding-left: 1rem;
 	padding-top: 0.5rem;
+}
+
+.cViewOnly {
+	pointer-events: none;
 }
 
 /* BELOW ARE STYLES FOR THE FOOTER COMPONENT */

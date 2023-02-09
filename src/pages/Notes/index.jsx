@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Link } from 'wouter'
 import uid from '../../utils/uniqueId.js'
 
@@ -14,9 +14,10 @@ import {
 	cNotesPageWrapper,
 	cNotesListContainer,
 	cNotesListItem,
-	cNewNoteContainer,
-	cNewNoteTitle,
-	cNewNoteText,
+	cNoteViewContainer,
+	cNoteTitle,
+	cNoteText,
+	cViewOnly,
 	cFooterContainer,
 	cDisclaimer,
 	cNotesListActionIcons,
@@ -24,7 +25,7 @@ import {
 	cDeleteIcon,
 	cSaveIcon,
 	cEditIcon,
-	cAddIcon,
+	cBackIcon,
 } from './index.module.css'
 
 export default () => {
@@ -32,19 +33,32 @@ export default () => {
 	const [titleUpdate, setTitleUpdate] = useState()
 	const [text, setText] = useState('')
 	const [textUpdate, setTextUpdate] = useState()
+	const [selectedNote, setSelectedNote] = useState({})
+	const [updateSelectedNote, setUpdateSelectedNote] = useState({})
 	const [notes, setNotes] = useState(
 		JSON.parse(localStorage.getItem('notes')) || []
 	)
-	const [selectedNote, setSelectedNote] = useState({})
 
 	const resetNote = () => {
 		setTitle('')
 		setText('')
 		setSelectedNote({})
+		setUpdateSelectedNote({})
 	}
 
-	const handleNoteClick = (note) => {
+	const handleNoteClickActive = (note) => {
 		setSelectedNote(note)
+	}
+
+	const handleNoteClickInactive = () => {
+		setSelectedNote({})
+		setUpdateSelectedNote({})
+		setTitleUpdate(selectedNote.title)
+		setTextUpdate(selectedNote.text)
+	}
+
+	const handleUpdateNoteClick = (note) => {
+		setUpdateSelectedNote(note)
 	}
 
 	const saveNote = () => {
@@ -71,7 +85,13 @@ export default () => {
 		resetNote()
 	}
 
-	const updateNote = (updatedNote) => {
+	const updateNote = () => {
+		const updatedNote = {
+			id: selectedNote.id,
+			title: titleUpdate ? titleUpdate : selectedNote.title,
+			text: textUpdate ? textUpdate : selectedNote.text,
+		}
+
 		const updatedNotes = notes.map((note) => {
 			if (note.id === updatedNote.id) {
 				return updatedNote
@@ -82,41 +102,44 @@ export default () => {
 		setNotes(updatedNotes)
 
 		localStorage.setItem('notes', JSON.stringify(updatedNotes))
+
+		resetNote()
 	}
 
 	return (
 		<>
 			<header className={cHeaderContainer}>
 				<nav className={cNavbarTitlePanel}>
-					<div className={cNavbarTitleContainer}>
+					<Link
+						className={cNavbarTitleContainer}
+						href='/'>
 						<Icon
 							name='leftPencil'
 							width='50px'
 						/>
-						<Link
-							className={cNavbarTitle}
-							href='/'>
-							Note Taker
-						</Link>
-					</div>
+						<div className={cNavbarTitle}>Note Taker</div>
+					</Link>
 					<div className={cActionsPanel}>
 						<div className={cNavActionIconsContainer}>
-							<Icon
-								className={
-									!title.trim() || !text.trim()
-										? `${cHideIcon}`
-										: `${cSaveIcon}`
-								}
-								name='save'
-								width='30px'
-								onClick={saveNote}
-							/>
-							<Icon
-								className={cAddIcon}
-								name='add'
-								width='30px'
-								onClick={resetNote}
-							/>
+							{updateSelectedNote.id ? (
+								<Icon
+									className={cSaveIcon}
+									name='save'
+									width='30px'
+									onClick={updateNote}
+								/>
+							) : (
+								<Icon
+									className={
+										!title.trim() || !text.trim()
+											? `${cHideIcon}`
+											: `${cSaveIcon}`
+									}
+									name='save'
+									width='30px'
+									onClick={saveNote}
+								/>
+							)}
 						</div>
 					</div>
 				</nav>
@@ -134,60 +157,99 @@ export default () => {
 												note === selectedNote ? 'active' : 'inactive'
 											}
 											onClick={() => {
-												handleNoteClick(note)
+												handleNoteClickActive(note)
 											}}>
 											{note.title}
 										</h3>
-										<div className={cNotesListActionIcons}>
-											<Icon
-												className={
-													note === selectedNote
-														? `${cEditIcon}`
-														: `${cHideIcon}`
-												}
-												name='edit'
-												width='1.75rem'
-												onClick={() => {
-													updateNote(note.id)
-												}}
-											/>
-											<Icon
-												className={
-													note === selectedNote
-														? `${cDeleteIcon}`
-														: `${cHideIcon}`
-												}
-												name='trash'
-												width='1.75rem'
-												onClick={() => {
-													deleteNote(note.id)
-												}}
-											/>
-										</div>
+										{selectedNote.title && (
+											<div className={cNotesListActionIcons}>
+												<Icon
+													className={
+														note === selectedNote
+															? `${cBackIcon}`
+															: `${cHideIcon}`
+													}
+													name='back'
+													width='1.75rem'
+													onClick={handleNoteClickInactive}
+												/>
+												<Icon
+													className={
+														note === updateSelectedNote
+															? `${cHideIcon}`
+															: `${cEditIcon}`
+													}
+													name='edit'
+													width='1.75rem'
+													onClick={() => {
+														handleUpdateNoteClick(note)
+													}}
+												/>
+												<Icon
+													className={
+														note === selectedNote
+															? `${cDeleteIcon}`
+															: `${cHideIcon}`
+													}
+													name='trash'
+													width='1.75rem'
+													onClick={() => {
+														deleteNote(note.id)
+													}}
+												/>
+											</div>
+										)}
 									</div>
 								</Fragment>
 							)
 						})}
 					</Fragment>
 				</div>
-				<div className={cNewNoteContainer}>
-					<input
-						id='note-title'
-						className={cNewNoteTitle}
-						placeholder='Note Title'
-						maxLength='30'
-						value={selectedNote.title ? selectedNote.title : title}
-						onChange={(e) => setTitle(e.target.value)}
-						type='text'
-					/>
-					<textarea
-						id='note-text'
-						className={cNewNoteText}
-						placeholder='Note Text'
-						value={selectedNote.text ? selectedNote.text : text}
-						onChange={(e) => setText(e.target.value)}
-					/>
-				</div>
+				<form className={cNoteViewContainer}>
+					{updateSelectedNote.id ? (
+						<Fragment>
+							<input
+								className={cNoteTitle}
+								placeholder={selectedNote.title}
+								maxLength='30'
+								value={titleUpdate || selectedNote.title}
+								onChange={(e) => setTitleUpdate(e.target.value)}
+								type='text'
+							/>
+							<textarea
+								className={cNoteText}
+								placeholder={selectedNote.text}
+								value={textUpdate || selectedNote.text}
+								onChange={(e) => setTextUpdate(e.target.value)}
+							/>
+						</Fragment>
+					) : (
+						<Fragment>
+							<input
+								className={
+									selectedNote.title
+										? `${cNoteTitle} ${cViewOnly}`
+										: `${cNoteTitle}`
+								}
+								placeholder='Note Title'
+								maxLength='30'
+								value={selectedNote.title ? selectedNote.title : title}
+								onChange={(e) => setTitle(e.target.value)}
+								type='text'
+							/>
+							<textarea
+								className={
+									selectedNote.text
+										? `${cNoteText} ${cViewOnly}`
+										: `${cNoteText}`
+								}
+								placeholder='Note text...'
+								value={selectedNote.text ? selectedNote.text : text}
+								onChange={(e) => setText(e.target.value)}
+							/>
+						</Fragment>
+					)}
+				</form>
 			</div>
 
 			<footer className={cFooterContainer}>
