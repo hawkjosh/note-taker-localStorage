@@ -1,5 +1,5 @@
 import Icon from '../../components/icons/index.jsx'
-import Button from '../../components/MyButton/index.jsx'
+import CustomButton from '../../components/CustomButton/index.jsx'
 
 import {
 	cHomePageWrapper,
@@ -30,10 +30,10 @@ export default () => {
 					<div className={cWelcomeSubtitle}>
 						A simple app to keep track of your notes!
 					</div>
-					<Button href='/notes'>Get Started</Button>
+					<CustomButton href='/notes'>Get Started</CustomButton>
 				</section>
 			</div>
-			
+
 			<footer className={cFooterContainer}>
 				<p className={cDisclaimer}>
 					© {new Date().getFullYear()} Joshua Wilde Hawk. All Rights Reserved.

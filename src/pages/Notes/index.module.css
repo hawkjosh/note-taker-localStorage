@@ -1,161 +1,118 @@
 /* BELOW ARE STYLES FOR THE HEADER COMPONENT */
-.cActionsPanel {
-	align-items: center;
-	display: flex;
-}
-
 .cHeaderContainer {
-	background-color: hsla(0, 0%, 0%, 0.8);
-	left: 0;
-	padding: 0.5rem 1rem;
+	width: 100%;
+	height: 7.5rem;
 	position: fixed;
 	top: 0;
-	width: 100%;
-	z-index: 10;
-	height: 100px;
-}
-
-.cNavbarTitle {
-	color: var(--title-color);
-	display: inline-block;
-	font-size: 2rem;
-	font-weight: 400;
-	text-transform: uppercase;
-	font-family: var(--cursive-font);
+	z-index: 1;
+	display: flex;
+	background-color: hsla(0, 0%, 0%, 0.8);
+	padding: 2rem 2.5rem;
 }
 
 .cNavbarTitleContainer {
-	align-items: center;
 	display: flex;
-	gap: 1.5rem;
 	justify-content: center;
+	align-items: center;
+	gap: clamp(1.5rem, 1.327rem + 0.647vw, 2rem);
 	text-decoration: none;
 }
 
-.cNavbarTitlePanel {
-	align-items: center;
-	display: flex;
-	justify-content: space-between;
-	padding: 1.5rem 1rem;
-	position: relative;
-}
-
-/* BELOW ARE STYLES FOR THE ACTION BUTTON COMPONENT INSIDE THE HEADER */
-.cNavActionIconsContainer {
-	display: flex;
-	gap: 2rem;
-}
-
-.cNavActionIconsContainer *:hover {
-	cursor: pointer;
-}
-
-.cSaveIcon svg:hover,
-.cBackIcon svg:hover {
-	fill: var(--title-color);
-}
-
-.cHideIcon {
-	display: none;
+.cNavbarTitle {
+	font-size: clamp(1.5rem, 0.981rem + 1.942vw, 3rem);
+	font-family: var(--cursive-font);
+	letter-spacing: clamp(0.15rem, 0.064rem + 0.179vw, 0.25rem);
+	text-transform: uppercase;
+	color: var(--title-color);
 }
 
 /* BELOW ARE STYLES FOR THE NOTES PAGE */
 .cNotesPageWrapper {
 	width: 100%;
-	height: calc(100vh - 10rem);
-	display: flex;
-	margin: 6.25rem 2.5% 0rem;
+	position: absolute;
+	top: 7.5rem;
+	display: grid;
+	grid-template-columns: 35% 65%;
 }
 
 .cNotesListContainer {
-	width: auto;
-	max-width: 32.5%;
+	width: 100%;
 	height: 100%;
+	position: relative;
+	top: 0;
+	z-index: 0;
+	overflow-y: scroll;
 	display: flex;
 	flex-direction: column;
-	flex-basis: 32.5%;
-	border: 1.5px solid var(--vague-color);
-	border-bottom: none;
-	border-top: none;
-	padding: 0 1.5rem;
+	background-color: transparent;
 }
 
 .cNotesListItem {
-	width: 100%;
-	height: auto;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	font-size: 1.25rem;
-	border-bottom: 1.5px solid var(--vague-color);
-	cursor: pointer;
-	padding: 0rem 0.5rem;
-}
-
-.cNotesListItem:first-child {
-	padding-top: 2rem;
+	padding: 0.75rem 1.25rem;
+	border-bottom: 0.075rem solid var(--vague-color);
 }
 
 .cNotesListItem:last-child {
 	border-bottom: none;
 }
 
+.cNotesListItemTitle {
+	width: fit-content;
+	max-width: 90%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: clamp(1.15rem, 0.977rem + 0.647vw, 1.65rem);
+	cursor: pointer;
+}
+
+.cNotesListItemTitle[data-status='active'],
+.cNotesListItemTitle:hover {
+	font-weight: bold;
+	color: var(--title-color);
+}
+
 .cNotesListActionIcons {
 	display: flex;
-	gap: 1.25rem;
-}
-
-.cDeleteIcon svg:hover {
-	fill: tomato;
-}
-
-.cEditIcon svg:hover {
-	fill:lawngreen;
-}
-
-.cNotesListItem > h3[data-status='active'] {
-	font-weight: bold;
-	color: var(--title-color)
+	gap: 1rem;
 }
 
 .cNoteViewContainer {
-	width: auto;
-	max-width: 62.5%;
+	width: 65%;
 	height: 100%;
+	position: fixed;
+	right: 0;
+	z-index: 1;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	flex-basis: 62.5%;
-	padding-left: 1.5rem;
+	gap: 0.5rem;
+	background-color: var(--secondary-text-color);
+	border-left: 0.15rem solid var(--title-color);
+}
+
+.cNoteTitleWrapper {
+	display: flex;
+	align-items: center;
+	border-bottom: 0.075rem solid #757575;
+	padding-right: 2rem;
 }
 
 .cNoteTitle {
-	width: 100%;
-	height: auto;
-	max-height: 15%;
-	flex-basis: 15%;
-	font-size: 3rem;
+	all: unset;
 	color: var(--main-color);
-	background-color: var(--secondary-text-color);
-	border: none;
-	border-bottom: 1px solid #757575;
-	outline: none;
-	padding-left: 1rem;
+	font-size: clamp(2.25rem, 1.904rem + 1.294vw, 3.25rem);
 }
 
 .cNoteText {
-	width: 100%;
-	height: auto;
-	max-height: 75%;
-	flex-basis: 75%;
-	font-size: 1.5rem;
+	all: unset;
+	height: 100%;
+	overflow-y: scroll;
+	font-size: clamp(1.25rem, 0.99rem + 0.971vw, 2rem);
 	color: var(--main-color);
-	background-color: var(--secondary-text-color);
-	border: none;
-	outline: none;
-	resize: none;
-	padding-left: 1rem;
-	padding-top: 0.5rem;
+	background-color: transparent;
 }
 
 .cViewOnly {
@@ -166,13 +123,67 @@
 .cFooterContainer {
 	background-color: #111222;
 	text-align: center;
-	position: absolute;
+	position: fixed;
 	width: 100%;
 	bottom: 0;
 	height: 60px;
+	z-index: 1;
 }
 
+/* BELOW ARE STYLES FOR THE PAGE ICONS */
 .cDisclaimer {
 	color: var(--vague-color);
 	opacity: 0.7;
+}
+
+.cSaveNew svg {
+	fill: var(--main-color);
+}
+
+.cSaveIcon svg:hover {
+	fill: forestgreen;
+	cursor: pointer;
+}
+
+.cBackIcon svg:hover {
+	fill: var(--title-color);
+	cursor: pointer;
+}
+
+.cEditIcon svg:hover {
+	fill: royalblue;
+	cursor: pointer;
+}
+
+.cDeleteIcon svg:hover {
+	fill: tomato;
+	cursor: pointer;
+}
+
+.cHideIcon {
+	display: none;
+}
+
+/* BELOW ARE MEDIA QUERIES FOR RESPONSIVENESS */
+@media (max-width: 768px) {
+	.cHeaderContainer {
+		justify-content: center;
+	}
+
+	.cNotesPageWrapper {
+		display: flex;
+		flex-direction: column-reverse;
+	}
+
+	.cNoteViewContainer {
+		width: 100%;
+		height: 16rem;
+		top: 7.5rem;
+		border-bottom: 0.15rem solid hsla(45, 100%, 51%, 1);
+	}
+
+	.cNotesListContainer {
+		top: 16rem;
+		border: none;
+	}
 }

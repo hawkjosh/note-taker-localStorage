@@ -1,17 +1,17 @@
-import { cMyButton } from './index.module.css'
+import { cCustomButton } from './index.module.css'
 
 export default (props) => {
 	if (props.href) {
 		return (
 			<a
-				className={cMyButton}
+				className={cCustomButton}
 				{...props}
 			/>
 		)
 	}
 	return (
 		<button
-			className={cMyButton}
+			className={cCustomButton}
 			type='button'
 			{...props}
 		/>
