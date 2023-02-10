@@ -2,41 +2,40 @@ import React, { Fragment, useState } from 'react'
 import { Link } from 'wouter'
 import uid from '../../utils/uniqueId.js'
 
-import Icon from '../../components/icons/index.jsx'
-
 import CustomInput from '../../components/CustomInput/index.jsx'
 import CustomTextarea from '../../components/CustomTextarea/index.jsx'
 
+import Icon from '../../components/icons/index.jsx'
+import PencilIcon from '../../components/PencilIcon/index.jsx'
+
 import {
 	cHeaderContainer,
-	cNavbarTitle,
 	cNavbarTitleContainer,
+	cNavbarTitle,
 	cNotesPageWrapper,
 	cNotesListContainer,
 	cNotesListItem,
+	cNotesListItemTitle,
+	cNotesListActionIcons,
 	cNoteViewContainer,
+	cNoteTitleWrapper,
 	cNoteTitle,
 	cNoteText,
 	cViewOnly,
-	cFooterContainer,
-	cDisclaimer,
-	cNotesListActionIcons,
-	cHideIcon,
-	cDeleteIcon,
+	cBackIcon,
 	cSaveIcon,
 	cEditIcon,
-	cBackIcon,
+	cDeleteIcon,
 	cSaveNew,
-	cNoteTitleWrapper,
-	cNotesListItemTitle,
+	cHideIcon,
 } from './index.module.css'
 
 export default () => {
 	const [title, setTitle] = useState('')
-	const [titleUpdate, setTitleUpdate] = useState()
 	const [text, setText] = useState('')
-	const [textUpdate, setTextUpdate] = useState()
 	const [selectedNote, setSelectedNote] = useState({})
+	const [titleUpdate, setTitleUpdate] = useState()
+	const [textUpdate, setTextUpdate] = useState()
 	const [updateSelectedNote, setUpdateSelectedNote] = useState({})
 	const [notes, setNotes] = useState(
 		JSON.parse(localStorage.getItem('notes')) || []
@@ -118,15 +117,12 @@ export default () => {
 	}
 
 	return (
-		<>
+		<Fragment>
 			<header className={cHeaderContainer}>
 				<Link
 					className={cNavbarTitleContainer}
 					href='/'>
-					<Icon
-						name='leftPencil'
-						width='50px'
-					/>
+					<PencilIcon iconSize='60px' />
 					<div className={cNavbarTitle}>Note Taker</div>
 				</Link>
 			</header>
@@ -262,12 +258,6 @@ export default () => {
 					)}
 				</div>
 			</div>
-
-			<footer className={cFooterContainer}>
-				<p className={cDisclaimer}>
-					© {new Date().getFullYear()} Joshua Wilde Hawk. All Rights Reserved.
-				</p>
-			</footer>
-		</>
+		</Fragment>
 	)
 }

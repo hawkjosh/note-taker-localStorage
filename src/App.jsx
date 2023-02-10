@@ -10,18 +10,19 @@ import Notes from './pages/Notes/index.jsx'
 import './App.css'
 
 export default () => {
-	// const [location] = useLocation()
+	const [location] = useLocation()
 
 	return (
 		<StrictMode>
 			<Parallax className='page'>
-				{/* {location === '/' ? ( */}
+				{location === '/' ? (
 					<Fragment>
 						<StarsLayer />
 						<CloudsLayer />
 					</Fragment>
-				{/* ) : null} */}
-
+				) : null}
+			</Parallax>
+			
 				<main>
 					<Switch>
 						<Route path='/'>
@@ -32,7 +33,6 @@ export default () => {
 						</Route>
 					</Switch>
 				</main>
-			</Parallax>
 		</StrictMode>
 	)
 }

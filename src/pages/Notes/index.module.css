@@ -6,8 +6,9 @@
 	top: 0;
 	z-index: 1;
 	display: flex;
-	background-color: hsla(0, 0%, 0%, 0.8);
+	background-color: var(--dark-background-color);
 	padding: 2rem 2.5rem;
+	border-bottom: 0.15rem solid var(--title-color);
 }
 
 .cNavbarTitleContainer {
@@ -111,23 +112,13 @@
 	height: 100%;
 	overflow-y: scroll;
 	font-size: clamp(1.25rem, 0.99rem + 0.971vw, 2rem);
+	line-height: 1.25;
 	color: var(--main-color);
 	background-color: transparent;
 }
 
 .cViewOnly {
 	pointer-events: none;
-}
-
-/* BELOW ARE STYLES FOR THE FOOTER COMPONENT */
-.cFooterContainer {
-	background-color: #111222;
-	text-align: center;
-	position: fixed;
-	width: 100%;
-	bottom: 0;
-	height: 60px;
-	z-index: 1;
 }
 
 /* BELOW ARE STYLES FOR THE PAGE ICONS */

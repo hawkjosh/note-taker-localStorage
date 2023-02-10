@@ -1,14 +1,13 @@
-import Icon from '../../components/icons/index.jsx'
 import CustomButton from '../../components/CustomButton/index.jsx'
+
+import NotesIcon from '../../components/NotesIcon/index.jsx'
 
 import {
 	cHomePageWrapper,
 	cWelcomeContainer,
-	cWelcomeSubtitle,
-	cWelcomeTitle,
 	cWelcomeTitleContainer,
-	cFooterContainer,
-	cDisclaimer,
+	cWelcomeTitle,
+	cWelcomeSubtitle,
 } from './index.module.css'
 
 export default () => {
@@ -16,29 +15,14 @@ export default () => {
 		<>
 			<div className={cHomePageWrapper}>
 				<section className={cWelcomeContainer}>
+					<NotesIcon iconSize='clamp(16rem, 10.46rem + 20.712vw, 32rem)' />
 					<div className={cWelcomeTitleContainer}>
-						<Icon
-							name='leftPencil'
-							width='85px'
-						/>
 						<div className={cWelcomeTitle}>Note Taker</div>
-						<Icon
-							name='rightPencil'
-							width='85px'
-						/>
+						<div className={cWelcomeSubtitle}>A simple notes app!</div>
+						<CustomButton href='/notes'>Get Started</CustomButton>
 					</div>
-					<div className={cWelcomeSubtitle}>
-						A simple app to keep track of your notes!
-					</div>
-					<CustomButton href='/notes'>Get Started</CustomButton>
 				</section>
 			</div>
-
-			<footer className={cFooterContainer}>
-				<p className={cDisclaimer}>
-					© {new Date().getFullYear()} Joshua Wilde Hawk. All Rights Reserved.
-				</p>
-			</footer>
 		</>
 	)
 }

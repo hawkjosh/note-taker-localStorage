@@ -31,15 +31,6 @@ body {
 	margin: 0;
 	padding: 0;
 	color: var(--default-text-color);
-	/* display: flex;
-	flex-direction: column;
-	grid-template-rows: auto 1fr auto;
-	justify-content: space-between;
-	min-height: 100vh;
-	scrollbar-gutter: stable both-edges;
-	scrollbar-width: thin;
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-font-smoothing: antialiased; */
 }
 
 * ::-webkit-scrollbar {
